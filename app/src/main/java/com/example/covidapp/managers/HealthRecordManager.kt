@@ -3,7 +3,15 @@ package com.example.covidapp.managers
 import com.example.covidapp.dao.HealthRecordRepository
 import com.example.covidapp.model.HealthRecord
 
-class HealthRecordManager(private val healthRecordRepository: HealthRecordRepository) {
+class HealthRecordManager {
+    private var healthRecordRepository = HealthRecordRepository()
+
+    init {
+        healthRecordRepository.add(HealthRecord())
+        healthRecordRepository.add(HealthRecord())
+        healthRecordRepository.add(HealthRecord())
+        healthRecordRepository.add(HealthRecord())
+    }
 
     fun add(healthRecord: HealthRecord) {
         this.healthRecordRepository.add(healthRecord)
@@ -13,7 +21,7 @@ class HealthRecordManager(private val healthRecordRepository: HealthRecordReposi
         return this.healthRecordRepository.get(index)
     }
 
-    fun getAll(): List<HealthRecord> {
+    fun getAll(): ArrayList<HealthRecord> {
         return this.healthRecordRepository.getAll()
     }
 

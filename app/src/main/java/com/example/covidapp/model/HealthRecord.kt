@@ -24,7 +24,7 @@ class HealthRecord {
     * https://www.who.int/emergencies/diseases/novel-coronavirus-2019/question-and-answers-hub/q-a-detail/coronavirus-disease-covid-19#:~:text=symptoms
     * looks reliably, so I'd stick with it
      */
-    var date = Date()
+    var calendar = Calendar.getInstance()
     var overallMood = MoodLevel.OK
 
     // most common COVID symptoms
@@ -47,7 +47,6 @@ class HealthRecord {
     var chestPainOrPressure = SymptomsStrength.NO_SYMPTOMS
     var lossOfSpeechOrMovement = SymptomsStrength.NO_SYMPTOMS
 
-
     private fun calculateTheRisk(): Double {
         //TODO: implement the method which calculates the risk of being infected, based on the user's input.
         achesAndPains = SymptomsStrength.MEDIUM_SYMPTOMS
@@ -58,4 +57,15 @@ class HealthRecord {
         //TODO: return the string about the risk of being infected based on the calculateTheRisk() method.
         return "";
     }
+
+    fun getRiskShortenedInfo(): String {
+        //TODO: return the infection risk in a single word, like "high", "low", "medium", whatever.
+        return "HIGH"
+    }
+
+    fun getDateString(): String {
+        return calendar.get(Calendar.DAY_OF_MONTH)
+            .toString() + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.YEAR)
+    }
+
 }

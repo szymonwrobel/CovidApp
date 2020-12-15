@@ -22,7 +22,7 @@ class HealthRecordRepository {
         throw IndexOutOfBoundsException();
     }
 
-    fun getAll(): List<HealthRecord> {
+    fun getAll(): ArrayList<HealthRecord> {
         return this.healthRecords
     }
 

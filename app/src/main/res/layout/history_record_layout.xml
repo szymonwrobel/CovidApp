@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/healthRecordLayout"
+    android:layout_width="match_parent"
+    android:layout_height="70dp">
+
+    <!-- DIVIDERS -->
+    <View
+        android:id="@+id/dividerVertical"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/historyItemImage" />
+
+    <View
+        android:id="@+id/dividerHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- THE END OF DIVIDERS -->
+
+    <ImageView
+        android:id="@+id/historyItemImage"
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/healthRecordImage"
+        android:src="@drawable/ic_big_thumb_up_green_24dp"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/moodText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="You felt great placeholder"
+        app:layout_constraintBottom_toBottomOf="@id/dividerHorizontal"
+        app:layout_constraintEnd_toStartOf="@id/dividerVertical"
+        app:layout_constraintStart_toEndOf="@id/historyItemImage"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Date goes there"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/dividerVertical"
+        app:layout_constraintStart_toEndOf="@id/historyItemImage"
+        app:layout_constraintTop_toTopOf="@id/dividerHorizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Risky placeholder:"
+        app:layout_constraintBottom_toBottomOf="@id/dividerHorizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/dividerVertical"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/riskText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="LOW RISK"
+        app:layout_constraintBottom_toBottomOf="@id/historyItemImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/dividerVertical"
+        app:layout_constraintTop_toTopOf="@id/dividerHorizontal" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

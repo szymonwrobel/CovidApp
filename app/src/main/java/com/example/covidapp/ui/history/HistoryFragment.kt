@@ -1,31 +1,42 @@
 package com.example.covidapp.ui.history
 
 import android.os.Bundle
+import android.os.health.SystemHealthManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.ListView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.covidapp.MainActivity
 import com.example.covidapp.R
+import com.example.covidapp.managers.HealthRecordManager
+import com.example.covidapp.model.HealthRecord
 
 class HistoryFragment : Fragment() {
 
     private lateinit var historyViewModel: HistoryViewModel
+    private val healthManager = HealthRecordManager()
+
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         historyViewModel =
-                ViewModelProvider(this).get(HistoryViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_history, container, false)
-        val textView: TextView = root.findViewById(R.id.text_history)
-        historyViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
-        return root
+            ViewModelProvider(this).get(HistoryViewModel::class.java)
+        val view = inflater.inflate(R.layout.fragment_history, container, false)
+
+        val listView = view.findViewById<ListView>(R.id.healthRecordListView)
+        val myAdapter = HistoryListAdapter(view.context, healthManager.getAll())
+        listView.adapter = myAdapter
+
+
+
+        return view
     }
 }

@@ -35,8 +35,6 @@ class HistoryFragment : Fragment() {
         val myAdapter = HistoryListAdapter(view.context, healthManager.getAll())
         listView.adapter = myAdapter
 
-
-
         return view
     }
 }

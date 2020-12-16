@@ -23,56 +23,101 @@
 
     <!-- THE END OF DIVIDERS -->
 
+    <!-- The text views are wrapped into linear layouts to allow them to be scaled.
+    Scaling without it requires API level 26 or higher -->
+
     <ImageView
         android:id="@+id/historyItemImage"
-        android:layout_width="70dp"
-        android:layout_height="match_parent"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
         android:contentDescription="@string/healthRecordImage"
         android:src="@drawable/ic_big_thumb_up_green_24dp"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/moodText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="You felt great placeholder"
-        app:layout_constraintBottom_toBottomOf="@id/dividerHorizontal"
-        app:layout_constraintEnd_toStartOf="@id/dividerVertical"
-        app:layout_constraintStart_toEndOf="@id/historyItemImage"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/dateText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Date goes there"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/dividerVertical"
-        app:layout_constraintStart_toEndOf="@id/historyItemImage"
-        app:layout_constraintTop_toTopOf="@id/dividerHorizontal" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Risky placeholder:"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="@id/dividerHorizontal"
+        app:layout_constraintEnd_toStartOf="@id/dividerVertical"
+        app:layout_constraintStart_toEndOf="@id/historyItemImage"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/moodText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/PLACEHOLDER"
+            android:textColor="@color/black"
+            app:autoSizeMaxTextSize="22sp"
+            app:autoSizeMinTextSize="6sp"
+            app:autoSizeTextType="uniform" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/dividerVertical"
+        app:layout_constraintStart_toEndOf="@id/historyItemImage"
+        app:layout_constraintTop_toTopOf="@id/dividerHorizontal">
+
+        <TextView
+            android:id="@+id/dateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/PLACEHOLDER"
+            android:textColor="@color/black"
+            app:autoSizeMaxTextSize="22sp"
+            app:autoSizeMinTextSize="6sp"
+            app:autoSizeTextType="uniform" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="@id/dividerHorizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/dividerVertical"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/riskText"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/riskOfBeingInfected"
+            android:textColor="@color/black"
+            app:autoSizeMaxTextSize="22sp"
+            app:autoSizeMinTextSize="6sp"
+            app:autoSizeTextType="uniform" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="LOW RISK"
-        app:layout_constraintBottom_toBottomOf="@id/historyItemImage"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/dividerVertical"
-        app:layout_constraintTop_toTopOf="@id/dividerHorizontal" />
+        app:layout_constraintTop_toTopOf="@id/dividerHorizontal">
 
+        <TextView
+            android:id="@+id/riskText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/PLACEHOLDER"
+            android:textColor="@color/black"
+            app:autoSizeMaxTextSize="22sp"
+            app:autoSizeMinTextSize="6sp"
+            app:autoSizeTextType="uniform" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,4 +10,5 @@ class QuarantineViewModel : ViewModel() {
         value = "This is quarantine Fragment"
     }
     val text: LiveData<String> = _text
+
 }

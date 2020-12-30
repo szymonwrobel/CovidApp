@@ -40,7 +40,7 @@ class HealthRecord {
     var headache = SymptomsStrength.NO_SYMPTOMS
     var lossOfTasteOrSmell = SymptomsStrength.NO_SYMPTOMS
     var rashOnSkin = SymptomsStrength.NO_SYMPTOMS
-    var discolourationOfFindersOrToes = SymptomsStrength.NO_SYMPTOMS
+    var discolourationOfFingersOrToes = SymptomsStrength.NO_SYMPTOMS
 
     // serious COVID symptoms
     var difficultyBreathingOrShortnessOfBreath = SymptomsStrength.NO_SYMPTOMS

@@ -35,7 +35,7 @@ class HealthRecord {
     //less common COVID symptoms
     var achesAndPains = SymptomsStrength.NO_SYMPTOMS
     var soreThroat = SymptomsStrength.NO_SYMPTOMS
-    var diarrhoea = SymptomsStrength.NO_SYMPTOMS
+    var diarrhea = SymptomsStrength.NO_SYMPTOMS
     var conjunctivitis = SymptomsStrength.NO_SYMPTOMS
     var headache = SymptomsStrength.NO_SYMPTOMS
     var lossOfTasteOrSmell = SymptomsStrength.NO_SYMPTOMS

@@ -9,6 +9,7 @@ class HealthRecordManager {
     private var healthRecordRepository = HealthRecordRepository()
 
     init {
+        getAll()
         // THERE ARE SOME TEST VALUES, TODO: DELETE TEST VALUES
         val hr1 = HealthRecord()
         val hr2 = HealthRecord()

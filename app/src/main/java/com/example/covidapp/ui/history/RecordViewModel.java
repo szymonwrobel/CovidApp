@@ -24,10 +24,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.covidapp.R;
+import com.example.covidapp.managers.HealthRecordManager;
+import com.example.covidapp.model.HealthRecord;
 import com.example.covidapp.model.Symptom;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -35,6 +38,7 @@ public class RecordViewModel extends AppCompatActivity {
 
     private List<Symptom> symptoms;
     private double currentRisk = 0;
+    private final HealthRecord hr = new HealthRecord();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,20 +47,20 @@ public class RecordViewModel extends AppCompatActivity {
         ListView symptomsList = findViewById(R.id.symptomsList);
 
         symptoms = new ArrayList<>();
-        symptoms.add(new Symptom("Fever", 4));
-        symptoms.add(new Symptom("Dry cough", 4 ));
-        symptoms.add(new Symptom("Tiredness", 3 ));
-        symptoms.add(new Symptom("Aches and pains", 4 ));
-        symptoms.add(new Symptom("Sore throat", 2 ));
-        symptoms.add(new Symptom("Diarrhea", 1 ));
-        symptoms.add(new Symptom("Conjunctivitis", 1 ));
-        symptoms.add(new Symptom("Headache", 1 ));
-        symptoms.add(new Symptom("Loss of taste or smell", 5 ));
-        symptoms.add(new Symptom("Rash on skin", 2 ));
-        symptoms.add(new Symptom("Discolouration of fingers or toes", 3 ));
-        symptoms.add(new Symptom("Difficulty breathing or shortness of breath", 5 ));
-        symptoms.add(new Symptom("Chest pain or pressure", 4 ));
-        symptoms.add(new Symptom("Loss of speech or movement", 5 ));
+        symptoms.add(new Symptom("fever", "Fever", 4));
+        symptoms.add(new Symptom("dryCough", "Dry cough", 4 ));
+        symptoms.add(new Symptom("tiredness", "Tiredness", 3 ));
+        symptoms.add(new Symptom("achesAndPains", "Aches and pains", 4 ));
+        symptoms.add(new Symptom("soreThroat", "Sore throat", 2 ));
+        symptoms.add(new Symptom("diarrhea", "Diarrhea", 1 ));
+        symptoms.add(new Symptom("conjunctivitis", "Conjunctivitis", 1 ));
+        symptoms.add(new Symptom("headache", "Headache", 1 ));
+        symptoms.add(new Symptom("lossOfTasteOrSmell", "Loss of taste or smell", 5 ));
+        symptoms.add(new Symptom("rashOnSkin", "Rash on skin", 2 ));
+        symptoms.add(new Symptom("discolourationOfFingersOrToes", "Discolouration of fingers or toes", 3 ));
+        symptoms.add(new Symptom("difficultyBreathingOrShortnessOfBreath", "Difficulty breathing or shortness of breath", 5 ));
+        symptoms.add(new Symptom("chestPainOrPressure", "Chest pain or pressure", 4 ));
+        symptoms.add(new Symptom("lossOfSpeechOrMovement", "Loss of speech or movement", 5 ));
 
         symptomsList.setAdapter(new MyListAdapter());
 
@@ -65,6 +69,9 @@ public class RecordViewModel extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 currentRisk = calculateRisk();
+                HealthRecordManager healthRecordManager = new HealthRecordManager();
+
+                healthRecordManager.add(hr);
                 Toast.makeText(getApplicationContext(), "Current risk is: " + currentRisk + "%", Toast.LENGTH_SHORT).show();
             }
         });
@@ -101,13 +108,9 @@ public class RecordViewModel extends AppCompatActivity {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public String getDateString() {
-        LocalDate date = LocalDate.now();
-        int year = date.getYear();
-        int month = date.getMonthValue();
-        int day = date.getDayOfMonth();
-        return day + "/" + month + "/" + year;
+        Calendar calendar = Calendar.getInstance();
+        return calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.YEAR);
     }
 
     private class MyListAdapter extends BaseAdapter {
@@ -132,9 +135,9 @@ public class RecordViewModel extends AppCompatActivity {
         @NonNull
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent){
-                LayoutInflater infalter = LayoutInflater.from(getApplicationContext());
+                LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
 
-                convertView = infalter.inflate(R.layout.symptom_record, parent, false);
+                convertView = inflater.inflate(R.layout.symptom_record, parent, false);
 
                 TextView symptomName = convertView.findViewById(R.id.symptomName);
                 RadioGroup btnGroup = convertView.findViewById(R.id.groupBtn);
@@ -148,19 +151,35 @@ public class RecordViewModel extends AppCompatActivity {
                         switch (checkedId) {
                             case R.id.noSymptoms:
                                 symptom.setSeverity(0);
-                                //Toast.makeText(getApplicationContext(), "Set severity to 0 for: " + symptoms.get(position).getName(), Toast.LENGTH_SHORT).show();
+                                try {
+                                    hr.getClass().getField(symptom.getId()).set(hr, HealthRecord.SymptomsStrength.NO_SYMPTOMS);
+                                } catch (NoSuchFieldException | IllegalAccessException e) {
+                                    e.printStackTrace();
+                                }
                                 break;
                             case R.id.lowSymptoms:
                                 symptom.setSeverity(1);
-                                //Toast.makeText(getApplicationContext(), "Set severity to 1 for: " + symptoms.get(position).getName(), Toast.LENGTH_SHORT).show();
+                                try {
+                                    hr.getClass().getField(symptom.getId()).set(hr, HealthRecord.SymptomsStrength.WEAK_SYMPTOMS);
+                                } catch (NoSuchFieldException | IllegalAccessException e) {
+                                    e.printStackTrace();
+                                }
                                 break;
                             case R.id.mediumSymptoms:
                                 symptom.setSeverity(2);
-                                //Toast.makeText(getApplicationContext(), "Set severity to 2 for: " + symptoms.get(position).getName(), Toast.LENGTH_SHORT).show();
+                                try {
+                                    hr.getClass().getField(symptom.getId()).set(hr, HealthRecord.SymptomsStrength.MEDIUM_SYMPTOMS);
+                                } catch (NoSuchFieldException | IllegalAccessException e) {
+                                    e.printStackTrace();
+                                }
                                 break;
                             case R.id.highSymptoms:
                                 symptom.setSeverity(3);
-                                //Toast.makeText(getApplicationContext(), "Set severity to 3 for: " + symptoms.get(position).getName(), Toast.LENGTH_SHORT).show();
+                                try {
+                                    hr.getClass().getField(symptom.getId()).set(hr, HealthRecord.SymptomsStrength.STRONG_SYMPTOMS);
+                                } catch (NoSuchFieldException | IllegalAccessException e) {
+                                    e.printStackTrace();
+                                }
                                 break;
                         }
                     }

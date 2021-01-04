@@ -31,7 +31,9 @@ import com.example.covidapp.model.Symptom;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class RecordViewModel extends AppCompatActivity {
@@ -39,6 +41,10 @@ public class RecordViewModel extends AppCompatActivity {
     private List<Symptom> symptoms;
     private double currentRisk = 0;
     private final HealthRecord hr = new HealthRecord();
+    private static Map<Integer, Boolean> firstRow = new HashMap<>();
+    private static Map<Integer, Boolean> secondRow = new HashMap<>();
+    private static Map<Integer, Boolean> thirdRow = new HashMap<>();
+    private static Map<Integer, Boolean> fourthRow = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,8 +147,26 @@ public class RecordViewModel extends AppCompatActivity {
 
                 TextView symptomName = convertView.findViewById(R.id.symptomName);
                 RadioGroup btnGroup = convertView.findViewById(R.id.groupBtn);
+                RadioButton r1 = convertView.findViewById(R.id.noSymptoms);
+                RadioButton r2 = convertView.findViewById(R.id.lowSymptoms);
+                RadioButton r3 = convertView.findViewById(R.id.mediumSymptoms);
+                RadioButton r4 = convertView.findViewById(R.id.highSymptoms);
                 Symptom symptom = (Symptom) getItem(position);
                 symptomName.setText(symptom.getName());
+
+                if(firstRow.containsKey(position)){
+                    r1.setChecked(firstRow.get(position));
+                }
+                if(secondRow.containsKey(position)){
+                    r2.setChecked(secondRow.get(position));
+                }
+                if(thirdRow.containsKey(position)){
+                    r3.setChecked(thirdRow.get(position));
+                }
+                if(fourthRow.containsKey(position)){
+                    r4.setChecked(fourthRow.get(position));
+                }
+
                 btnGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
                     @SuppressLint("NonConstantResourceId")
                     @Override
@@ -150,6 +174,12 @@ public class RecordViewModel extends AppCompatActivity {
 
                         switch (checkedId) {
                             case R.id.noSymptoms:
+                                if(!firstRow.containsKey(position)){
+                                    firstRow.put(position, true);
+                                    secondRow.remove(position);
+                                    thirdRow.remove(position);
+                                    fourthRow.remove(position);
+                                }
                                 symptom.setSeverity(0);
                                 try {
                                     hr.getClass().getField(symptom.getId()).set(hr, HealthRecord.SymptomsStrength.NO_SYMPTOMS);
@@ -158,6 +188,12 @@ public class RecordViewModel extends AppCompatActivity {
                                 }
                                 break;
                             case R.id.lowSymptoms:
+                                if(!secondRow.containsKey(position)){
+                                    secondRow.put(position, true);
+                                    firstRow.remove(position);
+                                    thirdRow.remove(position);
+                                    fourthRow.remove(position);
+                                }
                                 symptom.setSeverity(1);
                                 try {
                                     hr.getClass().getField(symptom.getId()).set(hr, HealthRecord.SymptomsStrength.WEAK_SYMPTOMS);
@@ -166,6 +202,12 @@ public class RecordViewModel extends AppCompatActivity {
                                 }
                                 break;
                             case R.id.mediumSymptoms:
+                                if(!thirdRow.containsKey(position)){
+                                    thirdRow.put(position, true);
+                                    secondRow.remove(position);
+                                    firstRow.remove(position);
+                                    fourthRow.remove(position);
+                                }
                                 symptom.setSeverity(2);
                                 try {
                                     hr.getClass().getField(symptom.getId()).set(hr, HealthRecord.SymptomsStrength.MEDIUM_SYMPTOMS);
@@ -174,6 +216,12 @@ public class RecordViewModel extends AppCompatActivity {
                                 }
                                 break;
                             case R.id.highSymptoms:
+                                if(!fourthRow.containsKey(position)){
+                                    fourthRow.put(position, true);
+                                    secondRow.remove(position);
+                                    firstRow.remove(position);
+                                    thirdRow.remove(position);
+                                }
                                 symptom.setSeverity(3);
                                 try {
                                     hr.getClass().getField(symptom.getId()).set(hr, HealthRecord.SymptomsStrength.STRONG_SYMPTOMS);
@@ -186,5 +234,6 @@ public class RecordViewModel extends AppCompatActivity {
                 });
             return convertView;
         }
+
     }
 }

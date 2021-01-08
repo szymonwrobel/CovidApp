@@ -41,16 +41,17 @@ public class RecordViewModel extends AppCompatActivity {
     private List<Symptom> symptoms;
     private double currentRisk = 0;
     private final HealthRecord hr = new HealthRecord();
-    private static Map<Integer, Boolean> firstRow = new HashMap<>();
-    private static Map<Integer, Boolean> secondRow = new HashMap<>();
-    private static Map<Integer, Boolean> thirdRow = new HashMap<>();
-    private static Map<Integer, Boolean> fourthRow = new HashMap<>();
+    private static final Map<Integer, Boolean> firstRow = new HashMap<>();
+    private static final Map<Integer, Boolean> secondRow = new HashMap<>();
+    private static final Map<Integer, Boolean> thirdRow = new HashMap<>();
+    private static final Map<Integer, Boolean> fourthRow = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_view_model);
         ListView symptomsList = findViewById(R.id.symptomsList);
+
 
         symptoms = new ArrayList<>();
         symptoms.add(new Symptom("fever", "Fever", 4));

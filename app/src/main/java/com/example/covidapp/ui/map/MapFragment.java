@@ -1,6 +1,7 @@
 package com.example.covidapp.ui.map;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -39,6 +40,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
+import java.util.Objects;
+
 public class MapFragment extends Fragment {
 
     private SupportMapFragment supportMapFragment;
@@ -53,7 +56,7 @@ public class MapFragment extends Fragment {
 
         supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.google_map);
 
-        client = LocationServices.getFusedLocationProviderClient(getActivity());
+        client = LocationServices.getFusedLocationProviderClient(requireContext());
 
         getCurrentLocation();
 
@@ -62,10 +65,10 @@ public class MapFragment extends Fragment {
     }
 
     private void getCurrentLocation() {
-        if (ActivityCompat.checkSelfPermission(getActivity(),
+        if (ActivityCompat.checkSelfPermission(requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(),
+                && ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions((Activity) requireContext(),
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},44);
         }
         Task<Location> task = client.getLastLocation();

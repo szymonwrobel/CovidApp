@@ -15,6 +15,7 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.example.covidapp.R;
+import com.example.covidapp.model.QuarantineInfo;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -25,12 +26,7 @@ public class QuarantineFragment extends Fragment implements DatePickerDialog.OnD
     private Context mContext;
     private Button addQuarantineBtn;
     private TextView quarantineEndDate;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
+    private QuarantineInfo quarantineInfo = new QuarantineInfo();
 
     @Override
     public void onAttach(@NotNull Context context){
@@ -43,7 +39,12 @@ public class QuarantineFragment extends Fragment implements DatePickerDialog.OnD
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_quarantine, container, false);
+
         addQuarantineBtn = view.findViewById(R.id.addQuarantineBtn);
+        if(quarantineInfo.isUserOnQuarantine()){
+            addQuarantineBtn.setVisibility(View.INVISIBLE);
+        }
+
         quarantineEndDate = view.findViewById(R.id.quarantineEndDate);
         quarantineEndDate.setVisibility(View.INVISIBLE);
         addQuarantineBtn.setOnClickListener(view1 -> displayDatePickerDialog());

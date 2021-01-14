@@ -1,8 +1,14 @@
 package com.example.covidapp.model
 
+import android.app.Application
+import android.content.res.Resources
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import com.example.covidapp.R
 import java.util.*
+import kotlin.math.roundToInt
 
-class HealthRecord {
+class HealthRecord : Application() {
 
     enum class SymptomsStrength {
         NO_SYMPTOMS,
@@ -24,8 +30,9 @@ class HealthRecord {
     * https://www.who.int/emergencies/diseases/novel-coronavirus-2019/question-and-answers-hub/q-a-detail/coronavirus-disease-covid-19#:~:text=symptoms
     * looks reliably, so I'd stick with it
      */
+    var overallMood = MoodLevel.TERRIBLE
     var calendar = Calendar.getInstance()
-    var overallMood = MoodLevel.OK
+    var riskLevel = 0.0
 
     // most common COVID symptoms
     var fever = SymptomsStrength.NO_SYMPTOMS
@@ -47,20 +54,27 @@ class HealthRecord {
     var chestPainOrPressure = SymptomsStrength.NO_SYMPTOMS
     var lossOfSpeechOrMovement = SymptomsStrength.NO_SYMPTOMS
 
-    private fun calculateTheRisk(): Double {
-        //TODO: implement the method which calculates the risk of being infected, based on the user's input.
-        achesAndPains = SymptomsStrength.MEDIUM_SYMPTOMS
-        return 0.0;
+    fun calculateRisk(): Double {
+        return 0.0
     }
 
-    fun getRiskInfo(): String {
-        //TODO: return the string about the risk of being infected based on the calculateTheRisk() method.
-        return "";
+    fun setRisk(value: Double) {
+        riskLevel = value
+        overallMood = if (riskLevel <= 20) {
+            MoodLevel.EXCELLENT
+        } else if (riskLevel > 20 && riskLevel <= 40) {
+            MoodLevel.GOOD
+        } else if (riskLevel > 40 && riskLevel <= 60) {
+            MoodLevel.OK
+        } else if (riskLevel > 60 && riskLevel <= 80) {
+            MoodLevel.BAD
+        } else {
+            MoodLevel.TERRIBLE
+        }
     }
 
     fun getRiskShortenedInfo(): String {
-        //TODO: return the infection risk in a single word, like "high", "low", "medium", whatever.
-        return "HIGH"
+        return riskLevel.roundToInt().toString() + "%"
     }
 
     fun getDateString(): String {

@@ -1,14 +1,43 @@
 package com.example.covidapp.dao
 
+import android.content.Context
 import com.example.covidapp.model.HealthRecord
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.ObjectInputStream
+import java.io.ObjectOutputStream
+import java.io.Serializable
+import java.lang.Exception
 import java.lang.IndexOutOfBoundsException
+import kotlin.collections.ArrayList
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.coroutineContext
 
-class HealthRecordRepository {
+object HealthRecordRepository : Serializable {
 
     private var healthRecords: ArrayList<HealthRecord> = ArrayList()
+    lateinit var context: Context
 
     init {
-        //TODO: add reading from cache or from file
+        //TODO: add reading from a file
+//        val hr1 = HealthRecord()
+//        val hr2 = HealthRecord()
+//        val hr3 = HealthRecord()
+//        val hr4 = HealthRecord()
+//        val hr5 = HealthRecord()
+//        val cal = Calendar.getInstance()
+//        cal.time = Date(2020 - 1900, 6, 15)
+//        hr1.calendar = cal
+//        hr2.calendar = cal
+//        hr3.calendar = cal
+//        hr4.calendar = cal
+//        hr5.calendar = cal
+//
+//        add(hr1)
+//        add(hr2)
+//        add(hr3)
+//        add(hr4)
+//        add(hr5)
     }
 
     fun add(healthRecord: HealthRecord) {

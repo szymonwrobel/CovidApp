@@ -13,8 +13,6 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import com.example.covidapp.R
 import com.example.covidapp.model.HealthRecord
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import java.util.*
 
 class HistoryListAdapter(
@@ -49,6 +47,7 @@ class HistoryListAdapter(
         val healthRecord = getItem(position) as HealthRecord
         var imageResource = 0
 
+        @Suppress("DUPLICATE_LABEL_IN_WHEN")
         when (healthRecord.overallMood) {
             HealthRecord.MoodLevel.TERRIBLE -> {
                 imageResource = R.drawable.ic_big_thumb_down_red_24dp

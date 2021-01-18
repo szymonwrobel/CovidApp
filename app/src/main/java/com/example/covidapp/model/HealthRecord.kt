@@ -5,10 +5,11 @@ import android.content.res.Resources
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.example.covidapp.R
+import java.io.Serializable
 import java.util.*
 import kotlin.math.roundToInt
 
-class HealthRecord : Application(), Comparable<HealthRecord> {
+class HealthRecord : Application(), Comparable<HealthRecord>, Serializable {
 
     enum class SymptomsStrength {
         NO_SYMPTOMS,

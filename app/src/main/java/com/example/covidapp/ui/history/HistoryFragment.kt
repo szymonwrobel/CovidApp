@@ -6,6 +6,7 @@ import android.view.*
 import android.widget.AdapterView
 import android.widget.ListView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.example.covidapp.R
 import com.example.covidapp.managers.HealthRecordManager
 import com.example.covidapp.model.HealthRecord
@@ -35,6 +36,10 @@ class HistoryFragment : Fragment() {
 
         listView.onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
             val item = parent.getItemAtPosition(position) as HealthRecord
+//
+//            val bundle = Bundle()
+//            bundle.putSerializable("keyG4NG", )
+
             val fragmentManager = requireActivity().supportFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
             fragmentTransaction.replace(R.id.nav_host_fragment, SingleRecordFragment())

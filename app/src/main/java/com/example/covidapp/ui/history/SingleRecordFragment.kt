@@ -13,6 +13,9 @@ import com.example.covidapp.model.HealthRecord
 
 
 class SingleRecordFragment : Fragment() {
+
+    var healthRecord: HealthRecord? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -20,8 +23,13 @@ class SingleRecordFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_single_health_record, container, false)
 
-        val textView = view.findViewById<TextView>(R.id.testText)
-        textView.text = "35"
+        if (arguments?.getSerializable("fearIsTheKey") != null) {
+            healthRecord = requireArguments().getSerializable("fearIsTheKey") as HealthRecord
+        }
+
+        
+
+
 
         val backButton = view.findViewById<AppCompatButton>(R.id.backButton)
         backButton.setOnClickListener {

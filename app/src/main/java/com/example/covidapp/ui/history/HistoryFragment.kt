@@ -36,13 +36,15 @@ class HistoryFragment : Fragment() {
 
         listView.onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
             val item = parent.getItemAtPosition(position) as HealthRecord
-//
-//            val bundle = Bundle()
-//            bundle.putSerializable("keyG4NG", )
+
+            val singleRecordFragment = SingleRecordFragment()
+            val bundle = Bundle()
+            bundle.putSerializable("fearIsTheKey", item)
+            singleRecordFragment.arguments = bundle
 
             val fragmentManager = requireActivity().supportFragmentManager
             val fragmentTransaction = fragmentManager.beginTransaction()
-            fragmentTransaction.replace(R.id.nav_host_fragment, SingleRecordFragment())
+            fragmentTransaction.replace(R.id.nav_host_fragment, singleRecordFragment)
             fragmentTransaction.addToBackStack(null)
             fragmentTransaction.commit()
         }

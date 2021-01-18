@@ -8,7 +8,7 @@ import com.example.covidapp.R
 import java.util.*
 import kotlin.math.roundToInt
 
-class HealthRecord : Application() {
+class HealthRecord : Application(), Comparable<HealthRecord> {
 
     enum class SymptomsStrength {
         NO_SYMPTOMS,
@@ -73,6 +73,8 @@ class HealthRecord : Application() {
         }
     }
 
+
+
     fun getRiskShortenedInfo(): String {
         return riskLevel.roundToInt().toString() + "%"
     }
@@ -80,6 +82,10 @@ class HealthRecord : Application() {
     fun getDateString(): String {
         return calendar.get(Calendar.DAY_OF_MONTH)
             .toString() + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.YEAR)
+    }
+
+    override fun compareTo(other: HealthRecord): Int {
+        return this.calendar.compareTo(other.calendar)
     }
 
 }

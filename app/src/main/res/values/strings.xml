@@ -9,10 +9,13 @@
     <string name="PLACEHOLDER">PLACEHOLDER</string>
     <string name="riskOfBeingInfected">Risk of being infected:</string>
     <string name="addQuarantineDate">Are you in quarantine now?</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="add_new_record">Add new record</string>
+
     <string name="confirm">CONFIRM</string>
     <string name="high">STRONG</string>
     <string name="medium">MEDIUM</string>
     <string name="low">WEAK</string>
     <string name="none">NONE</string>
+    <string name="reversedOrder">Reversed order</string>
 </resources>

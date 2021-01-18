@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -66,6 +67,7 @@ public class RecordViewModel extends AppCompatActivity {
             HealthRecordManager healthRecordManager = new HealthRecordManager();
             hr.setRisk(currentRisk);
             healthRecordManager.add(hr);
+            healthRecordManager.getAll();
             finish();
         });
     }
@@ -106,9 +108,27 @@ public class RecordViewModel extends AppCompatActivity {
 
             TextView symptomName = convertView.findViewById(R.id.symptomName);
             RadioGroup btnGroup = convertView.findViewById(R.id.groupBtn);
-            btnGroup.clearCheck();
+            RadioButton r1 = convertView.findViewById(R.id.noSymptoms);
+            RadioButton r2 = convertView.findViewById(R.id.lowSymptoms);
+            RadioButton r3 = convertView.findViewById(R.id.mediumSymptoms);
+            RadioButton r4 = convertView.findViewById(R.id.highSymptoms);
+
             Symptom symptom = (Symptom) getItem(position);
             symptomName.setText(symptom.getName());
+
+            if(firstRow.containsKey(position)){
+                r1.setChecked(firstRow.get(position));
+            }
+            if(secondRow.containsKey(position)){
+                r2.setChecked(secondRow.get(position));
+            }
+            if(thirdRow.containsKey(position)){
+                r3.setChecked(thirdRow.get(position));
+            }
+            if(fourthRow.containsKey(position)){
+                r4.setChecked(fourthRow.get(position));
+            }
+            btnGroup.clearCheck();
 
             btnGroup.setOnCheckedChangeListener((group, checkedId) -> {
                 switch (checkedId) {

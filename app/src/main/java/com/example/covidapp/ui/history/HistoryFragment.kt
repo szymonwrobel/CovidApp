@@ -1,27 +1,19 @@
 package com.example.covidapp.ui.history
 
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.health.SystemHealthManager
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.*
+import android.view.*
+import android.widget.AdapterView
+import android.widget.HeaderViewListAdapter
+import android.widget.ListView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.example.covidapp.MainActivity
 import com.example.covidapp.R
-import com.example.covidapp.dao.HealthRecordRepository
 import com.example.covidapp.managers.HealthRecordManager
 import com.example.covidapp.model.HealthRecord
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class HistoryFragment : Fragment() {
 
-    private lateinit var historyViewModel: HistoryViewModel
     private val healthManager = HealthRecordManager()
     private lateinit var listView: ListView
     private lateinit var myAdapter: HistoryListAdapter
@@ -31,14 +23,12 @@ class HistoryFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        historyViewModel =
-            ViewModelProvider(this).get(HistoryViewModel::class.java)
         val view = inflater.inflate(R.layout.fragment_history, container, false)
-
+        setHasOptionsMenu(true)
         listView = view.findViewById(R.id.healthRecordListView)
         myAdapter = HistoryListAdapter(view.context, healthManager.getAll())
         val addRecordBtn = view.findViewById<FloatingActionButton>(R.id.addRecordBtn)
-        addRecordBtn.setOnClickListener{
+        addRecordBtn.setOnClickListener {
             val intent = Intent(this.context, RecordViewModel::class.java)
             startActivity(intent)
         }
@@ -50,6 +40,18 @@ class HistoryFragment : Fragment() {
 
         return view
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.health_records_reverse_order, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        myAdapter = HistoryListAdapter(requireContext(), healthManager.getAllReversed())
+        listView.adapter = myAdapter
+        return true
+    }
+
 
     override fun onResume() {
         super.onResume()

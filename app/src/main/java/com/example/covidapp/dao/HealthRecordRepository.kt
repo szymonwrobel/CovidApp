@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream
 import java.io.Serializable
 import java.lang.Exception
 import java.lang.IndexOutOfBoundsException
+import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.coroutineContext
@@ -17,6 +18,7 @@ object HealthRecordRepository : Serializable {
 
     private var healthRecords: ArrayList<HealthRecord> = ArrayList()
     lateinit var context: Context
+    private var printReversed = false
 
     init {
         //TODO: add reading from a file
@@ -52,7 +54,15 @@ object HealthRecordRepository : Serializable {
     }
 
     fun getAll(): ArrayList<HealthRecord> {
+        this.healthRecords.sort()
+        if (printReversed)
+            this.healthRecords.reverse()
         return this.healthRecords
+    }
+
+    fun getAllReversed(): ArrayList<HealthRecord> {
+        this.printReversed = !this.printReversed
+        return getAll()
     }
 
     fun update(index: Int, healthRecord: HealthRecord): Boolean {

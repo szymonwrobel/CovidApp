@@ -19,6 +19,10 @@ class HealthRecordManager {
         return HealthRecordRepository.getAll()
     }
 
+    fun getAllReversed(): ArrayList<HealthRecord> {
+        return HealthRecordRepository.getAllReversed()
+    }
+
     fun update(index: Int, healthRecord: HealthRecord): Boolean {
         return HealthRecordRepository.update(index, healthRecord)
     }

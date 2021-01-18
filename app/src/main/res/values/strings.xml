@@ -18,4 +18,6 @@
     <string name="low">WEAK</string>
     <string name="none">NONE</string>
     <string name="reversedOrder">Reversed order</string>
+    <string name="OK">OK</string>
+    <string name="Cancel">Cancel</string>
 </resources>

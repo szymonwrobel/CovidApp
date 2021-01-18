@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.AdapterView
-import android.widget.HeaderViewListAdapter
 import android.widget.ListView
 import androidx.fragment.app.Fragment
 import com.example.covidapp.R
@@ -36,6 +35,11 @@ class HistoryFragment : Fragment() {
 
         listView.onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
             val item = parent.getItemAtPosition(position) as HealthRecord
+            val fragmentManager = requireActivity().supportFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            fragmentTransaction.replace(R.id.nav_host_fragment, SingleRecordFragment())
+            fragmentTransaction.addToBackStack(null)
+            fragmentTransaction.commit()
         }
 
         return view
@@ -51,7 +55,6 @@ class HistoryFragment : Fragment() {
         listView.adapter = myAdapter
         return true
     }
-
 
     override fun onResume() {
         super.onResume()

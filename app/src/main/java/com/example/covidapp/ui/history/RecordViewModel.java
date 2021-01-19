@@ -21,6 +21,7 @@ import com.example.covidapp.managers.HealthRecordManager;
 import com.example.covidapp.model.HealthRecord;
 import com.example.covidapp.model.Symptom;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -116,19 +117,21 @@ public class RecordViewModel extends AppCompatActivity {
             Symptom symptom = (Symptom) getItem(position);
             symptomName.setText(symptom.getName());
 
-            if(firstRow.containsKey(position)){
+            if (firstRow.containsKey(position)) {
                 r1.setChecked(firstRow.get(position));
             }
-            if(secondRow.containsKey(position)){
+            if (secondRow.containsKey(position)) {
                 r2.setChecked(secondRow.get(position));
             }
-            if(thirdRow.containsKey(position)){
+            if (thirdRow.containsKey(position)) {
                 r3.setChecked(thirdRow.get(position));
             }
-            if(fourthRow.containsKey(position)){
+            if (fourthRow.containsKey(position)) {
                 r4.setChecked(fourthRow.get(position));
             }
             btnGroup.clearCheck();
+
+            System.out.println(position + "\n\n");
 
             btnGroup.setOnCheckedChangeListener((group, checkedId) -> {
                 switch (checkedId) {
@@ -140,11 +143,7 @@ public class RecordViewModel extends AppCompatActivity {
                             fourthRow.remove(position);
                         }
                         symptom.setSeverity(0);
-                        try {
-                            hr.getClass().getField(symptom.getId()).set(hr, HealthRecord.SymptomsStrength.NO_SYMPTOMS);
-                        } catch (NoSuchFieldException | IllegalAccessException e) {
-                            e.printStackTrace();
-                        }
+                        setFields(position, HealthRecord.SymptomsStrength.NO_SYMPTOMS);
                         break;
                     case R.id.lowSymptoms:
                         if (!secondRow.containsKey(position)) {
@@ -154,11 +153,7 @@ public class RecordViewModel extends AppCompatActivity {
                             fourthRow.remove(position);
                         }
                         symptom.setSeverity(1);
-                        try {
-                            hr.getClass().getField(symptom.getId()).set(hr, HealthRecord.SymptomsStrength.WEAK_SYMPTOMS);
-                        } catch (NoSuchFieldException | IllegalAccessException e) {
-                            e.printStackTrace();
-                        }
+                        setFields(position, HealthRecord.SymptomsStrength.WEAK_SYMPTOMS);
                         break;
                     case R.id.mediumSymptoms:
                         if (!thirdRow.containsKey(position)) {
@@ -168,11 +163,7 @@ public class RecordViewModel extends AppCompatActivity {
                             fourthRow.remove(position);
                         }
                         symptom.setSeverity(2);
-                        try {
-                            hr.getClass().getField(symptom.getId()).set(hr, HealthRecord.SymptomsStrength.MEDIUM_SYMPTOMS);
-                        } catch (NoSuchFieldException | IllegalAccessException e) {
-                            e.printStackTrace();
-                        }
+                        setFields(position, HealthRecord.SymptomsStrength.MEDIUM_SYMPTOMS);
                         break;
                     case R.id.highSymptoms:
                         if (!fourthRow.containsKey(position)) {
@@ -182,15 +173,72 @@ public class RecordViewModel extends AppCompatActivity {
                             thirdRow.remove(position);
                         }
                         symptom.setSeverity(3);
-                        try {
-                            hr.getClass().getField(symptom.getId()).set(hr, HealthRecord.SymptomsStrength.STRONG_SYMPTOMS);
-                        } catch (NoSuchFieldException | IllegalAccessException e) {
-                            e.printStackTrace();
-                        }
+                        setFields(position, HealthRecord.SymptomsStrength.STRONG_SYMPTOMS);
                         break;
                 }
             });
             return convertView;
+        }
+
+        private void setFields(int position, HealthRecord.SymptomsStrength symptomStrength) {
+            switch (position) {
+                case 0: {
+                    hr.setFever(symptomStrength);
+                    break;
+                }
+                case 1: {
+                    hr.setDryCough(symptomStrength);
+                    break;
+                }
+                case 2: {
+                    hr.setTiredness(symptomStrength);
+                    break;
+                }
+                case 3: {
+                    hr.setAchesAndPains(symptomStrength);
+                    break;
+                }
+                case 4: {
+                    hr.setSoreThroat(symptomStrength);
+                    break;
+                }
+                case 5: {
+                    hr.setDiarrhea(symptomStrength);
+                    break;
+                }
+                case 6: {
+                    hr.setConjunctivitis(symptomStrength);
+                    break;
+                }
+                case 7: {
+                    hr.setHeadache(symptomStrength);
+                    break;
+                }
+                case 8: {
+                    hr.setLossOfTasteOrSmell(symptomStrength);
+                    break;
+                }
+                case 9: {
+                    hr.setRashOnSkin(symptomStrength);
+                    break;
+                }
+                case 10: {
+                    hr.setDiscolourationOfFingersOrToes(symptomStrength);
+                    break;
+                }
+                case 11: {
+                    hr.setDifficultyBreathingOrShortnessOfBreath(symptomStrength);
+                    break;
+                }
+                case 12: {
+                    hr.setChestPainOrPressure(symptomStrength);
+                    break;
+                }
+                case 13: {
+                    hr.setLossOfSpeechOrMovement(symptomStrength);
+                    break;
+                }
+            }
         }
     }
 }

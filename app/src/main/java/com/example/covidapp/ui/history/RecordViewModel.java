@@ -131,8 +131,6 @@ public class RecordViewModel extends AppCompatActivity {
             }
             btnGroup.clearCheck();
 
-            System.out.println(position + "\n\n");
-
             btnGroup.setOnCheckedChangeListener((group, checkedId) -> {
                 switch (checkedId) {
                     case R.id.noSymptoms:

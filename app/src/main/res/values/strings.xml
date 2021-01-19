@@ -20,4 +20,7 @@
     <string name="reversedOrder">Reversed order</string>
     <string name="OK">OK</string>
     <string name="Cancel">Cancel</string>
+    <string name="deleteImSure">Delete it anyway</string>
+    <string name="deleteRecordQuestion">Delete this record?</string>
+    <string name="deleteRecordInfo">This action cannot be undone.</string>
 </resources>

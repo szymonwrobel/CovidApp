@@ -1,5 +1,7 @@
 package com.example.covidapp.ui.history
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
@@ -40,6 +42,7 @@ class HistoryFragment : Fragment() {
             val singleRecordFragment = SingleRecordFragment()
             val bundle = Bundle()
             bundle.putSerializable("fearIsTheKey", item)
+            bundle.putSerializable("adapter", myAdapter)
             singleRecordFragment.arguments = bundle
 
             val fragmentManager = requireActivity().supportFragmentManager
@@ -64,7 +67,12 @@ class HistoryFragment : Fragment() {
     }
 
     override fun onResume() {
+        println("Halko halko\n")
         super.onResume()
+        notifyDataSetChanged()
+    }
+
+    fun notifyDataSetChanged() {
         myAdapter.notifyDataSetChanged()
     }
 }

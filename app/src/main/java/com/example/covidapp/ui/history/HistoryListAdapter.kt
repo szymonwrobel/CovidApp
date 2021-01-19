@@ -13,12 +13,13 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import com.example.covidapp.R
 import com.example.covidapp.model.HealthRecord
+import java.io.Serializable
 import java.util.*
 
 class HistoryListAdapter(
     private val context: Context,
     private val healthRecordList: ArrayList<HealthRecord>
-) : BaseAdapter() {
+) : BaseAdapter(), Serializable {
 
     private val inflater: LayoutInflater = LayoutInflater.from(this.context)
 

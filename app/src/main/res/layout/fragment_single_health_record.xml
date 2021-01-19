@@ -26,7 +26,7 @@
         tools:layout_editor_absoluteX="0dp" />
 
     <View
-        android:id="@+id/divider"
+        android:id="@+id/divider50"
         android:layout_width="1dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -34,26 +34,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/listView" />
 
+    <View
+        android:id="@+id/divider75"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/divider50"
+        app:layout_constraintTop_toBottomOf="@id/listView" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/backButton"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/ic_black_back_24"
-        android:backgroundTint="@color/my_kinda_red"
+        android:backgroundTint="@color/kinda_gray"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/divider"
+        app:layout_constraintEnd_toEndOf="@id/divider75"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/deleteButton"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/ic_baseline_delete_forever_24"
         android:backgroundTint="@color/my_kinda_red"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/divider" />
+        app:layout_constraintStart_toStartOf="@id/divider75" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

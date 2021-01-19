@@ -67,7 +67,7 @@ public class QuarantineFragment extends Fragment implements DatePickerDialog.OnD
     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
         addQuarantineBtn.setVisibility(View.INVISIBLE);
         quarantineEndDate.setVisibility(View.VISIBLE);
-        String date = String.valueOf(year) + "/" + String.valueOf(month) + "/" + String.valueOf(dayOfMonth);
+        String date = year + "/" + month + 1 + "/" + dayOfMonth;
         quarantineEndDate.setText(date);
     }
 }

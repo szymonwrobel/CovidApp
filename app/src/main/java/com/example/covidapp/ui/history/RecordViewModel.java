@@ -60,6 +60,11 @@ public class RecordViewModel extends AppCompatActivity {
         symptoms.add(new Symptom("chestPainOrPressure", "Chest pain or pressure", 4));
         symptoms.add(new Symptom("lossOfSpeechOrMovement", "Loss of speech or movement", 5));
 
+        firstRow.clear();
+        secondRow.clear();
+        thirdRow.clear();
+        fourthRow.clear();
+
         symptomsList.setAdapter(new MyListAdapter());
 
         Button confirm = findViewById(R.id.ConfirmSymptomsBtn);
@@ -129,7 +134,7 @@ public class RecordViewModel extends AppCompatActivity {
             if (fourthRow.containsKey(position)) {
                 r4.setChecked(fourthRow.get(position));
             }
-            btnGroup.clearCheck();
+//            btnGroup.clearCheck();
 
             btnGroup.setOnCheckedChangeListener((group, checkedId) -> {
                 switch (checkedId) {

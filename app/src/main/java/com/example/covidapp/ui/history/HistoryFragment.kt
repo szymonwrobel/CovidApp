@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.example.covidapp.R
 import com.example.covidapp.managers.HealthRecordManager
 import com.example.covidapp.model.HealthRecord
+import com.example.covidapp.model.QuarantineInfo
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class HistoryFragment : Fragment() {

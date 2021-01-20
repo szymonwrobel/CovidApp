@@ -8,7 +8,8 @@
     <string name="feelingInfo">You felt %1$s</string>
     <string name="PLACEHOLDER">PLACEHOLDER</string>
     <string name="riskOfBeingInfected">Risk of being infected:</string>
-    <string name="addQuarantineDate">Are you in quarantine now?</string>
+    <string name="addQuarantineText">Are you in a quarantine now? Let us know when you are going to finish it!</string>
+    <string name="addQuarantineButtonText">Pick the date</string>
 
     <string name="add_new_record">Add new record</string>
 
@@ -23,4 +24,20 @@
     <string name="deleteImSure">Delete it anyway</string>
     <string name="deleteRecordQuestion">Delete this record?</string>
     <string name="deleteRecordInfo">This action cannot be undone.</string>
+    <string name="daysCounter">Only %s %s left until the end of your quarantine!</string>
+    <string name="tipOfThDay">Tip of the day:</string>
+    
+    <string-array name="quarantineActivities">
+        <item>Do 100 push-ups!</item>
+        <item>Watch an interesting movie!</item>
+        <item>Listen to classical music for at least 2 hours!</item>
+        <item>Read a book for at least an hour!</item>
+        <item>Play a game of chess!</item>
+        <item>Learn something new today!</item>
+        <item>Read about operating systems!</item>
+        <item>Do 100 squats!</item>
+        <item>Drink a glass of water every time you see this message!</item>
+        <item>Call your friends and ask them how they are doing!</item>
+        <item>Meditate for a while!</item>
+    </string-array>
 </resources>

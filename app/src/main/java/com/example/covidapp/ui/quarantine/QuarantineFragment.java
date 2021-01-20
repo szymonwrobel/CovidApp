@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -21,15 +20,18 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Calendar;
 
+
 public class QuarantineFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
 
     private Context mContext;
     private Button addQuarantineBtn;
-    private TextView quarantineEndDate;
-    private QuarantineInfo quarantineInfo = new QuarantineInfo();
+    private TextView quarantineInfoText;
+    private TextView tipOfTheDay;
+    private TextView tipOfTheDayConstText;
+    private TextView untilTheEndOfQuarantineText;
 
     @Override
-    public void onAttach(@NotNull Context context){
+    public void onAttach(@NotNull Context context) {
         super.onAttach(context);
         mContext = context;
     }
@@ -38,36 +40,58 @@ public class QuarantineFragment extends Fragment implements DatePickerDialog.OnD
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+//        quarantineInfo.startQuarantine();
+
         View view = inflater.inflate(R.layout.fragment_quarantine, container, false);
 
         addQuarantineBtn = view.findViewById(R.id.addQuarantineBtn);
-        if(quarantineInfo.isUserOnQuarantine()){
+        quarantineInfoText = view.findViewById(R.id.quarantineInfoText);
+        untilTheEndOfQuarantineText = view.findViewById(R.id.untilTheEndOfQuarantineText);
+        tipOfTheDay = view.findViewById(R.id.tipOfTheDay);
+        tipOfTheDayConstText = view.findViewById(R.id.tipOfTheDayConstText);
+        untilTheEndOfQuarantineText.setText(getString(R.string.daysCounter, "" + QuarantineInfo.getDaysUntilTheEndOfQuarantine(), QuarantineInfo.returnDayOrDaysString()));
+        tipOfTheDay.setText(QuarantineInfo.getDailyTip(requireContext()));
+
+        if (QuarantineInfo.getIsUserOnQuarantine()) {
             addQuarantineBtn.setVisibility(View.INVISIBLE);
+            quarantineInfoText.setVisibility(View.INVISIBLE);
+            untilTheEndOfQuarantineText.setVisibility(View.VISIBLE);
+            tipOfTheDay.setVisibility(View.VISIBLE);
+            tipOfTheDayConstText.setVisibility(View.VISIBLE);
         }
 
-        quarantineEndDate = view.findViewById(R.id.quarantineEndDate);
-        quarantineEndDate.setVisibility(View.INVISIBLE);
-        addQuarantineBtn.setOnClickListener(view1 -> displayDatePickerDialog());
+        addQuarantineBtn.setOnClickListener(v -> {
+            displayDatePickerDialog();
+            addQuarantineBtn.setEnabled(false);
+        });
 
         return view;
     }
 
-    public void displayDatePickerDialog(){
+    public void displayDatePickerDialog() {
         DatePickerDialog datePickerDialog = new DatePickerDialog(
                 mContext,
                 this,
                 Calendar.getInstance().get(Calendar.YEAR),
                 Calendar.getInstance().get(Calendar.MONTH),
                 Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+
+        datePickerDialog.getDatePicker().setMinDate((Calendar.getInstance().getTimeInMillis() + 1000 * 60 * 60 * 24));
+        addQuarantineBtn.setEnabled(true);
         datePickerDialog.show();
     }
 
-
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+        Calendar c = Calendar.getInstance();
+        c.set(year, month, dayOfMonth);
+        QuarantineInfo.startQuarantine(c);
         addQuarantineBtn.setVisibility(View.INVISIBLE);
-        quarantineEndDate.setVisibility(View.VISIBLE);
-        String date = year + "/" + month + 1 + "/" + dayOfMonth;
-        quarantineEndDate.setText(date);
+        quarantineInfoText.setVisibility(View.INVISIBLE);
+        untilTheEndOfQuarantineText.setText(getString(R.string.daysCounter, "" + QuarantineInfo.getDaysUntilTheEndOfQuarantine(), QuarantineInfo.returnDayOrDaysString()));
+        tipOfTheDay.setText(QuarantineInfo.getDailyTip(requireContext()));
+        untilTheEndOfQuarantineText.setVisibility(View.VISIBLE);
+        tipOfTheDay.setVisibility(View.VISIBLE);
+        tipOfTheDayConstText.setVisibility(View.VISIBLE);
     }
 }

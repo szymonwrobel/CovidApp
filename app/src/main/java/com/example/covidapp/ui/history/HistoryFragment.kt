@@ -65,7 +65,6 @@ class HistoryFragment : Fragment() {
     }
 
     override fun onResume() {
-        println("Halko halko\n")
         super.onResume()
         notifyDataSetChanged()
     }

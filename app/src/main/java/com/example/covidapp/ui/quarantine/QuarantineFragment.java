@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.covidapp.R;
@@ -28,6 +29,7 @@ public class QuarantineFragment extends Fragment implements DatePickerDialog.OnD
     private TextView quarantineInfoText;
     private TextView tipOfTheDay;
     private TextView tipOfTheDayConstText;
+    private ImageView coronavirus;
     private TextView untilTheEndOfQuarantineText;
 
     @Override
@@ -48,6 +50,7 @@ public class QuarantineFragment extends Fragment implements DatePickerDialog.OnD
         quarantineInfoText = view.findViewById(R.id.quarantineInfoText);
         untilTheEndOfQuarantineText = view.findViewById(R.id.untilTheEndOfQuarantineText);
         tipOfTheDay = view.findViewById(R.id.tipOfTheDay);
+        coronavirus = view.findViewById(R.id.coronavirusImageView);
         tipOfTheDayConstText = view.findViewById(R.id.tipOfTheDayConstText);
         untilTheEndOfQuarantineText.setText(getString(R.string.daysCounter, "" + QuarantineInfo.getDaysUntilTheEndOfQuarantine(), QuarantineInfo.returnDayOrDaysString()));
         tipOfTheDay.setText(QuarantineInfo.getDailyTip(requireContext()));
@@ -55,6 +58,7 @@ public class QuarantineFragment extends Fragment implements DatePickerDialog.OnD
         if (QuarantineInfo.getIsUserOnQuarantine()) {
             addQuarantineBtn.setVisibility(View.INVISIBLE);
             quarantineInfoText.setVisibility(View.INVISIBLE);
+            coronavirus.setVisibility(View.INVISIBLE);
             untilTheEndOfQuarantineText.setVisibility(View.VISIBLE);
             tipOfTheDay.setVisibility(View.VISIBLE);
             tipOfTheDayConstText.setVisibility(View.VISIBLE);
@@ -76,7 +80,7 @@ public class QuarantineFragment extends Fragment implements DatePickerDialog.OnD
                 Calendar.getInstance().get(Calendar.MONTH),
                 Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
 
-        datePickerDialog.getDatePicker().setMinDate((Calendar.getInstance().getTimeInMillis() + 1000 * 60 * 60 * 24));
+        datePickerDialog.getDatePicker().setMinDate((Calendar.getInstance().getTimeInMillis()));
         addQuarantineBtn.setEnabled(true);
         datePickerDialog.show();
     }
@@ -88,6 +92,7 @@ public class QuarantineFragment extends Fragment implements DatePickerDialog.OnD
         QuarantineInfo.startQuarantine(c);
         addQuarantineBtn.setVisibility(View.INVISIBLE);
         quarantineInfoText.setVisibility(View.INVISIBLE);
+        coronavirus.setVisibility(View.INVISIBLE);
         untilTheEndOfQuarantineText.setText(getString(R.string.daysCounter, "" + QuarantineInfo.getDaysUntilTheEndOfQuarantine(), QuarantineInfo.returnDayOrDaysString()));
         tipOfTheDay.setText(QuarantineInfo.getDailyTip(requireContext()));
         untilTheEndOfQuarantineText.setVisibility(View.VISIBLE);

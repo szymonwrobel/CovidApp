@@ -24,6 +24,12 @@ object QuarantineInfo {
     }
 
     @JvmStatic
+    fun endQuarantine() {
+        isUserOnQuarantine = false
+        quarantineEndDate = null
+    }
+
+    @JvmStatic
     fun getDaysUntilTheEndOfQuarantine(): Long {
         return if (quarantineEndDate != null) {
             if (quarantineEndDate!!.timeInMillis > Calendar.getInstance().timeInMillis) {
@@ -55,9 +61,6 @@ object QuarantineInfo {
     @JvmStatic
     fun getDailyTip(context: Context): String {
         val tipsOfDay = context.resources.getStringArray(R.array.quarantineActivities)
-        if (getDaysUntilTheEndOfQuarantine() > 1)
-            return tipsOfDay[(getDaysUntilTheEndOfQuarantine() - 1).toInt() % tipsOfDay.size]
-        else
-            return tipsOfDay[getDaysUntilTheEndOfQuarantine().toInt() % tipsOfDay.size]
+        return tipsOfDay[getDaysUntilTheEndOfQuarantine().toInt() % tipsOfDay.size]
     }
 }

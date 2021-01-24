@@ -8,6 +8,14 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
+        Properties properties = new Properties()
+        if (rootProject.file("local.properties").exists()) {
+            properties.load(rootProject.file("local.properties").newDataInputStream())
+        }
+
+        // Inject the Maps API key into the manifest
+        manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "") ]
+
         applicationId "com.example.covidapp"
         minSdkVersion 22
         targetSdkVersion 30

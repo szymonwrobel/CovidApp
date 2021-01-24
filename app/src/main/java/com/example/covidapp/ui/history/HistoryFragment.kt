@@ -39,7 +39,7 @@ class HistoryFragment : Fragment() {
 
             val singleRecordFragment = SingleRecordFragment()
             val bundle = Bundle()
-            bundle.putSerializable("fearIsTheKey", item)
+            bundle.putSerializable("healthRecord", item)
             bundle.putSerializable("adapter", myAdapter)
             singleRecordFragment.arguments = bundle
 

@@ -29,8 +29,8 @@ class SingleRecordFragment : Fragment() {
         setMenuVisibility(false)
         setHasOptionsMenu(false)
 
-        if (arguments?.getSerializable("fearIsTheKey") != null) {
-            healthRecord = requireArguments().getSerializable("fearIsTheKey") as HealthRecord
+        if (arguments?.getSerializable("healthRecord") != null) {
+            healthRecord = requireArguments().getSerializable("healthRecord") as HealthRecord
         }
         if (arguments?.getSerializable("adapter") != null) {
             adapterFromHistoryFragment = requireArguments().getSerializable("adapter") as HistoryListAdapter

@@ -97,7 +97,6 @@ class HistoryFragment : Fragment() {
         try {
             val fos: FileOutputStream = requireContext().openFileOutput("healthRepo", Context.MODE_PRIVATE)
             val os = ObjectOutputStream(fos)
-            @Suppress("UNCHECKED_CAST")
             os.writeObject(HealthRecordRepository.getAll())
             os.close()
             fos.close()

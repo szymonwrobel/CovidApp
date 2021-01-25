@@ -17,10 +17,14 @@ import android.widget.TextView;
 
 import com.example.covidapp.R;
 import com.example.covidapp.model.QuarantineInfo;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Calendar;
 
 
@@ -46,7 +50,20 @@ public class QuarantineFragment extends Fragment implements DatePickerDialog.OnD
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-//        quarantineInfo.startQuarantine();
+        if (!QuarantineInfo.getHasBeenInitialized()) {
+            String tempStr = "f";
+            try {
+                FileInputStream fis = requireContext().openFileInput("quarantine2115");
+                ObjectInputStream os = new ObjectInputStream(fis);
+                tempStr = (String) os.readObject();
+                os.close();
+                fis.close();
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            QuarantineInfo.stringToQuarantineInfo(tempStr);
+            QuarantineInfo.setHasBeenInitialized(true);
+        }
 
         View view = inflater.inflate(R.layout.fragment_quarantine, container, false);
 
@@ -105,6 +122,7 @@ public class QuarantineFragment extends Fragment implements DatePickerDialog.OnD
     }
 
     private void changeUIToQuarantineSet() {
+        writeFile();
         addQuarantineBtn.setVisibility(View.INVISIBLE);
         quarantineInfoText.setVisibility(View.INVISIBLE);
         coronavirus.setVisibility(View.INVISIBLE);
@@ -118,6 +136,7 @@ public class QuarantineFragment extends Fragment implements DatePickerDialog.OnD
     }
 
     private void changeUIToQuarantineNotSet() {
+        writeFile();
         addQuarantineBtn.setVisibility(View.VISIBLE);
         quarantineInfoText.setVisibility(View.VISIBLE);
         coronavirus.setVisibility(View.VISIBLE);
@@ -126,5 +145,17 @@ public class QuarantineFragment extends Fragment implements DatePickerDialog.OnD
         untilTheEndOfQuarantineText.setVisibility(View.INVISIBLE);
         deleteButton.setVisibility(View.INVISIBLE);
         deleteText.setVisibility(View.INVISIBLE);
+    }
+
+    private void writeFile() {
+        try {
+            FileOutputStream fos = requireContext().openFileOutput("quarantine2115", Context.MODE_PRIVATE);
+            ObjectOutputStream os = new ObjectOutputStream(fos);
+            os.writeObject(QuarantineInfo.quarantineInfoToString());
+            os.close();
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -1,27 +1,12 @@
 package com.example.covidapp.dao
 
-import android.content.Context
 import com.example.covidapp.model.HealthRecord
-import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.io.ObjectInputStream
-import java.io.ObjectOutputStream
-import java.io.Serializable
-import java.lang.Exception
-import java.lang.IndexOutOfBoundsException
-import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.coroutines.CoroutineContext
-import kotlin.coroutines.coroutineContext
+import java.io.*
 
 object HealthRecordRepository : Serializable {
 
     private var healthRecords: ArrayList<HealthRecord> = ArrayList()
     private var printReversed = false
-
-    init {
-        //TODO: add reading from a file
-    }
 
     fun add(healthRecord: HealthRecord) {
         this.healthRecords.add(healthRecord)
@@ -32,6 +17,11 @@ object HealthRecordRepository : Serializable {
             return this.healthRecords[index]
         }
         throw IndexOutOfBoundsException();
+    }
+
+    fun setAll(healthRecords: ArrayList<HealthRecord>?) {
+        if (healthRecords != null)
+            this.healthRecords = healthRecords
     }
 
     fun getAll(): ArrayList<HealthRecord> {

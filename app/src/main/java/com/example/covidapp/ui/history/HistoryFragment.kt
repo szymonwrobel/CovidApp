@@ -1,5 +1,6 @@
 package com.example.covidapp.ui.history
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
@@ -7,22 +8,40 @@ import android.widget.AdapterView
 import android.widget.ListView
 import androidx.fragment.app.Fragment
 import com.example.covidapp.R
+import com.example.covidapp.dao.HealthRecordRepository
 import com.example.covidapp.managers.HealthRecordManager
 import com.example.covidapp.model.HealthRecord
-import com.example.covidapp.model.QuarantineInfo
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.ObjectInputStream
+import java.io.ObjectOutputStream
+import java.lang.Exception
 
 class HistoryFragment : Fragment() {
 
     private val healthManager = HealthRecordManager()
     private lateinit var listView: ListView
     private lateinit var myAdapter: HistoryListAdapter
+    private var records: ArrayList<HealthRecord>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        try {
+            val fis: FileInputStream = requireContext().openFileInput("healthRepo")
+            val os = ObjectInputStream(fis)
+            @Suppress("UNCHECKED_CAST")
+            records = os.readObject() as ArrayList<HealthRecord>
+            os.close()
+            fis.close()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        HealthRecordRepository.setAll(records)
+
         val view = inflater.inflate(R.layout.fragment_history, container, false)
         setHasOptionsMenu(true)
         listView = view.findViewById(R.id.healthRecordListView)
@@ -71,6 +90,20 @@ class HistoryFragment : Fragment() {
 
     fun notifyDataSetChanged() {
         myAdapter.notifyDataSetChanged()
+        writeFile()
+    }
+
+    private fun writeFile() {
+        try {
+            val fos: FileOutputStream = requireContext().openFileOutput("healthRepo", Context.MODE_PRIVATE)
+            val os = ObjectOutputStream(fos)
+            @Suppress("UNCHECKED_CAST")
+            os.writeObject(HealthRecordRepository.getAll())
+            os.close()
+            fos.close()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 }
 

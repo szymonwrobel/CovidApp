@@ -21,7 +21,6 @@ import com.example.covidapp.managers.HealthRecordManager;
 import com.example.covidapp.model.HealthRecord;
 import com.example.covidapp.model.Symptom;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

@@ -1,5 +1,6 @@
 package com.example.covidapp.ui.history
 
+import android.content.Context
 import android.os.Bundle
 import android.view.*
 import android.widget.ListView
@@ -10,6 +11,9 @@ import com.example.covidapp.R
 import com.example.covidapp.dao.HealthRecordRepository
 import com.example.covidapp.model.HealthRecord
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import java.io.FileOutputStream
+import java.io.ObjectOutputStream
+import java.lang.Exception
 
 
 class SingleRecordFragment : Fragment() {
@@ -58,6 +62,7 @@ class SingleRecordFragment : Fragment() {
                 .setPositiveButton(resources.getString(R.string.deleteImSure)) { _, _ ->
                     HealthRecordRepository.remove(healthRecord)
                     adapterFromHistoryFragment.notifyDataSetChanged()
+                    writeFile()
                     val fragmentManager = requireActivity().supportFragmentManager
                     fragmentManager.popBackStack()
                 }.show()
@@ -67,5 +72,18 @@ class SingleRecordFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.findItem(R.id.reversed_order).isVisible = false
+    }
+
+    private fun writeFile() {
+        try {
+            val fos: FileOutputStream = requireContext().openFileOutput("healthRepo", Context.MODE_PRIVATE)
+            val os = ObjectOutputStream(fos)
+            @Suppress("UNCHECKED_CAST")
+            os.writeObject(HealthRecordRepository.getAll())
+            os.close()
+            fos.close()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 }

@@ -30,17 +30,21 @@ class HistoryFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        try {
-            val fis: FileInputStream = requireContext().openFileInput("healthRepo")
-            val os = ObjectInputStream(fis)
-            @Suppress("UNCHECKED_CAST")
-            records = os.readObject() as ArrayList<HealthRecord>
-            os.close()
-            fis.close()
-        } catch (e: Exception) {
-            e.printStackTrace()
+
+        if (!HealthRecordRepository.hasBeenInitialized) {
+            try {
+                val fis: FileInputStream = requireContext().openFileInput("healthRepo")
+                val os = ObjectInputStream(fis)
+                @Suppress("UNCHECKED_CAST")
+                records = os.readObject() as ArrayList<HealthRecord>
+                os.close()
+                fis.close()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            HealthRecordRepository.setAll(records)
+            HealthRecordRepository.hasBeenInitialized = true
         }
-        HealthRecordRepository.setAll(records)
 
         val view = inflater.inflate(R.layout.fragment_history, container, false)
         setHasOptionsMenu(true)

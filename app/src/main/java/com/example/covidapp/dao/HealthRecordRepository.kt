@@ -5,6 +5,7 @@ import java.io.*
 
 object HealthRecordRepository : Serializable {
 
+    var hasBeenInitialized = false
     private var healthRecords: ArrayList<HealthRecord> = ArrayList()
     private var printReversed = false
 

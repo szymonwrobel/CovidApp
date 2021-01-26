@@ -30,7 +30,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         val listOfMarkers = ListOfMarkers()
-        println(listOfMarkers.markers.size.toString() + " SIZE")
         for (marker in listOfMarkers.markers) {
             googleMap.addMarker(
                 MarkerOptions().position(LatLng(marker.latitude, marker.longitude))
